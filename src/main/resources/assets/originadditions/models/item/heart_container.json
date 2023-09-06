@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-      "layer0": "originaddititons:item/empty_charm"
+      "layer0": "originaddititons:item/heart_container"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+      "all": "originsadditions:block/zircon_block"
+  }
+}

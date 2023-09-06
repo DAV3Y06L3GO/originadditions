@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "originadditions:zircon"
+    }
+  },
+  "result": {
+    "item": "originadditions:zircon_block"
+  }
+}

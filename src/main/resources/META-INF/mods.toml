@@ -68,3 +68,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.originadditions]]
+    modId="origins_randomiser"
+    mandatory=true
+    versionRange="[2.2]"

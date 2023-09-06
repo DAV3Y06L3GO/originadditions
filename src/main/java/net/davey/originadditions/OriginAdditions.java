@@ -1,6 +1,12 @@
 package net.davey.originadditions;
 
 import com.mojang.logging.LogUtils;
+import net.davey.originadditions.block.ModBlocks;
+import net.davey.originadditions.block.entity.ModBlockEntities;
+import net.davey.originadditions.item.ModItems;
+import net.davey.originadditions.screen.ModMenuTypes;
+import net.davey.originadditions.screen.RevivalPylonScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,6 +30,12 @@ public class OriginAdditions
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -44,7 +56,7 @@ public class OriginAdditions
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
+            MenuScreens.register(ModMenuTypes.REVIVAL_PYLON_MENU.get(), RevivalPylonScreen::new);
 
         }
     }

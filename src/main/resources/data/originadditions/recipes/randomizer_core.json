@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "?/?",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_block"
+    },
+    "/": {
+      "item": "minecraft:end_crystal"
+    },
+    "?": {
+      "item": "minecraft:sea_lantern"
+    }
+  },
+  "result": {
+    "item": "originadditions:randomizer_core"
+  }
+}

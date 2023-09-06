@@ -10,17 +10,17 @@ import net.minecraft.server.level.ServerPlayer;
 import quantumxenon.origins_randomiser.enums.Objective;
 import quantumxenon.origins_randomiser.utils.ScoreboardUtils;
 
-public class UsesCommand {
-    public UsesCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register((LiteralArgumentBuilder<CommandSourceStack>) Commands.literal("uses").executes((context) -> {
-            return uses((CommandSourceStack)context.getSource());
+public class LivesCommand {
+    public LivesCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
+        dispatcher.register((LiteralArgumentBuilder<CommandSourceStack>) Commands.literal("lives").executes((context) -> {
+            return lives((CommandSourceStack)context.getSource());
         }));
     }
 
-    private int uses(CommandSourceStack source) throws CommandSyntaxException {
+    private int lives(CommandSourceStack source) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayer();
 
-        player.sendSystemMessage(Component.literal("You have " + ScoreboardUtils.getValue(Objective.USES, player) + " uses left!"));
+        player.sendSystemMessage(Component.literal("You have " + ScoreboardUtils.getValue(Objective.LIVES, player) + " lives left!"));
 
 
         return 1;

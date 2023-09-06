@@ -1,0 +1,16 @@
+{
+  "item.originadditions.zircon": "Zircon",
+  "item.originadditions.eight_ball": "Eight_Ball",
+
+  "item.originadditions.randomize_charge": "Randomizer Charge",
+  "item.originadditions.randomizer_core": "Randomizer Core",
+
+  "item.originadditions.empty_charm": "Empty Charm",
+  "item.originadditions.heart_container": "Heart Container",
+
+
+  "block.originadditions.zircon_block": "Block of Zircon",
+  "block.originadditions.revival_pylon": "Revival Pylon",
+
+  "itemGroup.originadditions_tab": "Origin Additions"
+}

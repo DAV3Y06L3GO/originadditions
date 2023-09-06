@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "!?!",
+    "/+/",
+    "#?#"
+  ],
+  "key": {
+    "!": {
+      "item": "minecraft:diamond"
+    },
+    "?": {
+      "item": "minecraft:redstone_block"
+    },
+    "/": {
+      "item": "minecraft:blaze_rod"
+    },
+    "+": {
+      "item": "originadditions:randomizer_core"
+    },
+    "#": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "originadditions:randomize_charge"
+  }
+}
