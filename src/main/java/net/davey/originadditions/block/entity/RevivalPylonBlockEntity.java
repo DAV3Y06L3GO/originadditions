@@ -70,7 +70,7 @@ public class RevivalPylonBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public Component getDisplayName() {
-        return null;
+        return Component.literal("Revival Pylon");
     }
 
     @Nullable
@@ -104,6 +104,7 @@ public class RevivalPylonBlockEntity extends BlockEntity implements MenuProvider
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
+        nbt.put("revival_pylon.progress", serializeNBT());
 
         super.saveAdditional(nbt);
     }
@@ -113,6 +114,8 @@ public class RevivalPylonBlockEntity extends BlockEntity implements MenuProvider
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
 
         super.load(nbt);
+
+        progress = nbt.getInt("revival_pylon.progress");
     }
 
     public void drops() {
