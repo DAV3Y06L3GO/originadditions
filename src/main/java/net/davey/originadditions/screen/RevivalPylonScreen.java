@@ -12,19 +12,25 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 
 import java.util.List;
 
 public class RevivalPylonScreen extends AbstractContainerScreen<RevivalPylonMenu> {
     private List<AbstractWidget> pylonButtons = Lists.newArrayList();
+    private List<ServerPlayer> players;
 
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(OriginAdditions.MOD_ID, "textures/gui/revival_pylon.png");
 
     public RevivalPylonScreen(RevivalPylonMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+        
+        this.players = inventory.player.getServer().getPlayerList().getPlayers();
     }
 
     private <T extends AbstractWidget> void addRevivalPylonButton(T widget) {
@@ -36,7 +42,15 @@ public class RevivalPylonScreen extends AbstractContainerScreen<RevivalPylonMenu
     protected void init() {
         super.init();
         this.pylonButtons.clear();
-        this.addRevivalPylonButton(new RevivalPylonButtons(this.leftPos + 10, this.topPos + 10));
+
+        int xPos = this.leftPos + 10;
+
+        for (ServerPlayer player : players) {
+            this.addRevivalPylonButton(new RevivalPylonButtons(xPos, this.topPos + 12));
+
+            xPos += 22;
+        }
+
     }
 
     @Override
@@ -48,14 +62,6 @@ public class RevivalPylonScreen extends AbstractContainerScreen<RevivalPylonMenu
         int y = (height - imageHeight) / 2;
 
         this.blit(stack, x, y, 0, 0, imageWidth, imageHeight);
-
-        renderProgressArrow(stack, x, y);
-    }
-
-    private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
-        if(menu.isCrafting()) {
-            blit(pPoseStack, x + 105, y + 33, 176, 0, 8, menu.getScaledProgress());
-        }
     }
 
     @Override
@@ -90,7 +96,7 @@ public class RevivalPylonScreen extends AbstractContainerScreen<RevivalPylonMenu
 
         @Override
         public void onPress() {
-
+            
         }
 
         @Override

@@ -9,47 +9,21 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class RevivalPylonMenu  extends AbstractContainerMenu {
     public final RevivalPylonBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
+
 
     public RevivalPylonMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()));
     }
 
-    public RevivalPylonMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
+    public RevivalPylonMenu(int id, Inventory inv, BlockEntity entity) {
         super(ModMenuTypes.REVIVAL_PYLON_MENU.get(), id);
-        checkContainerSize(inv, 3);
         blockEntity = (RevivalPylonBlockEntity) entity;
         this.level = inv.player.level;
-        this.data = data;
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
-
-        this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 12, 15));
-            this.addSlot(new SlotItemHandler(handler, 1, 86, 15));
-            this.addSlot(new SlotItemHandler(handler, 2, 86, 60));
-        });
-
-        addDataSlots(data);
-    }
-
-    public boolean isCrafting() {
-        return data.get(0) > 0;
-    }
-
-    public int getScaledProgress() {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
-
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -109,17 +83,4 @@ public class RevivalPylonMenu  extends AbstractContainerMenu {
                 player, ModBlocks.REVIVAL_PYLON.get());
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
-        }
-    }
 }
