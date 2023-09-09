@@ -59,13 +59,12 @@ public class RevivalPylonBlock extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
+            mc = Minecraft.getInstance();
             if (entity instanceof RevivalPylonBlockEntity && mc != null) {
                 this.mc.setScreen(new RevivalPylonScreen(pPlayer.getInventory(), Component.literal("revival_pylon")));
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
-        } else {
-            mc = Minecraft.getInstance();
         }
 
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
