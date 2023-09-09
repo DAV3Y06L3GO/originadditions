@@ -20,15 +20,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public class RevivalPylonScreen extends AbstractContainerScreen<RevivalPylonMenu> {
+public class RevivalPylonScreen extends AbstractContainerScreen {
     private List<AbstractWidget> pylonButtons = Lists.newArrayList();
     private List<ServerPlayer> players;
 
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(OriginAdditions.MOD_ID, "textures/gui/revival_pylon.png");
 
-    public RevivalPylonScreen(RevivalPylonMenu menu, Inventory inventory, Component component) {
-        super(menu, inventory, component);
+    public RevivalPylonScreen(Inventory inventory, Component component) {
+        super(null, inventory, component);
         
         this.players = inventory.player.getServer().getPlayerList().getPlayers();
     }

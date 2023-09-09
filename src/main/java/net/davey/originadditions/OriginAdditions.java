@@ -56,7 +56,7 @@ public class OriginAdditions
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            MenuScreens.register(ModMenuTypes.REVIVAL_PYLON_MENU.get(), RevivalPylonScreen::new);
+
 
         }
     }
