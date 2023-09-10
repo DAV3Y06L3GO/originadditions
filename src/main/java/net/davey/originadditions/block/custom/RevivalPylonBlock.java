@@ -2,6 +2,8 @@ package net.davey.originadditions.block.custom;
 
 import net.davey.originadditions.block.entity.ModBlockEntities;
 import net.davey.originadditions.block.entity.RevivalPylonBlockEntity;
+import net.davey.originadditions.networking.ModMessages;
+import net.davey.originadditions.networking.packet.SetScreenC2SPacket;
 import net.davey.originadditions.screen.RevivalPylonScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -57,14 +59,10 @@ public class RevivalPylonBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
+        if (pLevel.isClientSide()) {
             mc = Minecraft.getInstance();
-            if (entity instanceof RevivalPylonBlockEntity && mc != null) {
-                this.mc.setScreen(new RevivalPylonScreen(pPlayer.getInventory(), Component.literal("revival_pylon")));
-            } else {
-                throw new IllegalStateException("Our Container provider is missing!");
-            }
+
+            ModMessages.sendToServer(new SetScreenC2SPacket(mc, pPos, new RevivalPylonScreen(pPlayer.getInventory(), Component.literal("revival_pylon"))));
         }
 
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
