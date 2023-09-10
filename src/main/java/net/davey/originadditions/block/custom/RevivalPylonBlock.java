@@ -3,12 +3,12 @@ package net.davey.originadditions.block.custom;
 import net.davey.originadditions.block.entity.ModBlockEntities;
 import net.davey.originadditions.block.entity.RevivalPylonBlockEntity;
 import net.davey.originadditions.networking.ModMessages;
-import net.davey.originadditions.networking.packet.SetScreenC2SPacket;
+import net.davey.originadditions.networking.packet.SetScreenS2CPacket;
 import net.davey.originadditions.screen.RevivalPylonScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +25,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.injection.modify.LocalVariableDiscriminator;
 
 public class RevivalPylonBlock extends BaseEntityBlock {
     public RevivalPylonBlock(Properties properties) {
@@ -59,10 +58,16 @@ public class RevivalPylonBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide()) {
-            mc = Minecraft.getInstance();
+        if (!pLevel.isClientSide()) {
+            BlockEntity entity = pLevel.getBlockEntity(pPos);
 
-            ModMessages.sendToServer(new SetScreenC2SPacket(mc, pPos, new RevivalPylonScreen(pPlayer.getInventory(), Component.literal("revival_pylon"))));
+
+
+            if (entity instanceof RevivalPylonBlockEntity) {
+                ModMessages.sendToPlayer(new SetScreenS2CPacket(new RevivalPylonScreen(pPlayer.getInventory(), Component.literal("revival_pylon"))), (ServerPlayer) pPlayer);
+            } else {
+                throw new IllegalStateException("Our Container provider is missing!");
+            }
         }
 
         return InteractionResult.sidedSuccess(pLevel.isClientSide());

@@ -1,12 +1,10 @@
 package net.davey.originadditions.networking.packet;
 
 import net.davey.originadditions.block.entity.RevivalPylonBlockEntity;
-import net.davey.originadditions.screen.RevivalPylonScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,19 +14,16 @@ import java.util.function.Supplier;
 
 
 
-public class SetScreenC2SPacket {
+public class SetScreenS2CPacket {
 
     private Minecraft minecraft;
-    private BlockPos pPos;
     private Screen screen;
 
-    public SetScreenC2SPacket(Minecraft minecraft, BlockPos pPos, Screen screen) {
-        this.minecraft = minecraft;
-        this.pPos = pPos;
+    public SetScreenS2CPacket(Screen screen) {
         this.screen = screen;
     }
 
-    public SetScreenC2SPacket(FriendlyByteBuf buf) {
+    public SetScreenS2CPacket(FriendlyByteBuf buf) {
 
     }
 
@@ -39,18 +34,10 @@ public class SetScreenC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            // HERE WE ARE ON THE SERVER!
+            // HERE WE ARE ON THE CLIENT!
+            minecraft = Minecraft.getInstance();
 
-            ServerPlayer player = context.getSender();
-            ServerLevel level = player.getLevel();
-
-            BlockEntity entity = level.getBlockEntity(pPos);
-
-            if (entity instanceof RevivalPylonBlockEntity) {
-                this.minecraft.setScreen(screen);
-            } else {
-                throw new IllegalStateException("Our Container provider is missing!");
-            }
+            minecraft.setScreen(screen);
 
         });
         return true;

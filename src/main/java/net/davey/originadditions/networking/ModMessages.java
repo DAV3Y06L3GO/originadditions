@@ -1,7 +1,7 @@
 package net.davey.originadditions.networking;
 
 import net.davey.originadditions.OriginAdditions;
-import net.davey.originadditions.networking.packet.SetScreenC2SPacket;
+import net.davey.originadditions.networking.packet.SetScreenS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -27,10 +27,10 @@ public class ModMessages {
 
         INSTANCE = net;
 
-        net.messageBuilder(SetScreenC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SetScreenC2SPacket::new)
-                .encoder(SetScreenC2SPacket::toBytes)
-                .consumerMainThread(SetScreenC2SPacket::handle)
+        net.messageBuilder(SetScreenS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SetScreenS2CPacket::new)
+                .encoder(SetScreenS2CPacket::toBytes)
+                .consumerMainThread(SetScreenS2CPacket::handle)
                 .add();
 
     }
