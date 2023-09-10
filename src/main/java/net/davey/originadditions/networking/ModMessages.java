@@ -27,7 +27,7 @@ public class ModMessages {
 
         INSTANCE = net;
 
-        net.messageBuilder(SetScreenS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+        net.messageBuilder(SetScreenS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SetScreenS2CPacket::new)
                 .encoder(SetScreenS2CPacket::toBytes)
                 .consumerMainThread(SetScreenS2CPacket::handle)
